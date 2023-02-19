@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:hyper_ui/core.dart';
 
@@ -8,20 +10,52 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<double> sales = [12.5, 20.0, 15.0, 10.0, 5.0];
     double? total;
     //Tuliskan kode untuk menghitung total penjualan dan simpan dalam variabel `total`
-    return total == 62.5;
+
+    //solve-1
+    double getTotalOfList(List<double> list) {
+      double total = 0;
+
+      for (double num in list) {
+        total += num;
+      }
+
+      return total;
+    }
+
+    return getTotalOfList(sales) == 62.5;
+
+    //solve-2
+    // total = sales.reduce((value, element) => value + element);
+    // return total == 62.5;
   }
 
   bool exercise2() {
     List<double> sales = [12.5, 20.0, 15.0, 10.0, 5.0];
     //Tulis kode untuk menghitung average penjualan dan tampung ke variable di bawah ini
     double? average = 0;
-    return average == 12.5;
+    //solve-1
+    // average = sales.reduce((value, element) => value + element) / sales.length;
+    // return average == 12.5;
+
+    //solve-2
+    double getAverageOfList(List<double> sales) {
+      double total = 0;
+
+      for (double num in sales) {
+        total += num;
+      }
+
+      return total / sales.length;
+    }
+
+    return getAverageOfList(sales) == 12.5;
   }
 
   bool exercise3() {
     List<int> numbers = [1, 2, 3, 4, 5];
     //Tulis kode untuk menghitung nilai tertinggi dari list numbers dan tampung ke variable di bawah ini
     int? highest = 0;
+    highest = numbers.reduce(max);
     return highest == 5;
   }
 
@@ -29,6 +63,7 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<int> numbers = [1, 2, 3, 4, 5];
     //Tulis kode untuk menghitung nilai terendah dari list numbers dan tampung ke variable di bawah ini
     int? lowest = 0;
+    lowest = numbers.reduce(min);
     return lowest == 1;
   }
 
@@ -36,6 +71,11 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     //Tulis kode untuk menghitung jumlah angka genap dan tampung ke variable di bawah ini
     int? even = 0;
+    //method
+    //filter the even number and then use reduce to get the total
+    even = numbers
+        .where((numbers) => numbers % 2 == 0)
+        .reduce((value, element) => value + element);
 
     return even == 30;
   }
@@ -45,6 +85,9 @@ class FbkDartListAndMapView extends StatefulWidget {
     //Tulis kode untuk menghitung jumlah angka ganjil dan tampung ke variable di bawah ini
     int? odd = 0;
 
+    odd = numbers
+        .where((numbers) => numbers % 2 == 1)
+        .reduce((value, element) => value + element);
     return odd == 25;
   }
 
@@ -52,7 +95,7 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     //Tulis kode untuk mencari angka terbesar dan tampung ke variable di bawah ini
     int? largest = 0;
-
+    largest = numbers.reduce(max);
     return largest == 10;
   }
 
@@ -60,7 +103,7 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     //Tulis kode untuk mencari angka terkecil dan tampung ke variable di bawah ini
     int? smallest = 0;
-
+    smallest = numbers.reduce(min);
     return smallest == 1;
   }
 
@@ -68,7 +111,7 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     //Tulis kode untuk menghitung jumlah angka yang lebih besar dari 5 dan tampung ke variable di bawah ini
     int? above = 0;
-
+    above = numbers.where((numbers) => numbers > 5).length;
     return above == 5;
   }
 
@@ -76,7 +119,7 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     //Tulis kode untuk menghitung jumlah angka yang lebih kecil dari 5 dan tampung ke variable di bawah ini
     int? below = 0;
-
+    below = numbers.where((numbers) => numbers < 5).length;
     return below == 4;
   }
 
@@ -84,6 +127,7 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<String> fruits = ["apple", "banana", "cherry", "date", "elderberry"];
     //Tulis kode untuk menentukan apakah ada buah yang dimulai dengan huruf "e"
     bool? result;
+    result = fruits.any((fruit) => fruit.startsWith('e'));
     return result == true;
   }
 
@@ -91,6 +135,12 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<int> numbers = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
     //Tulis kode untuk menentukan apakah semua angka dalam list adalah kelipatan 10
     bool? result;
+    //solve
+    bool isDivisibleByTen(int number) {
+      return (number % 10 == 0);
+    }
+
+    result = numbers.every(isDivisibleByTen);
     return result == true;
   }
 
@@ -98,6 +148,7 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<String> cars = ["Audi", "BMW", "Chevrolet", "Dodge", "Ferrari"];
     //Tulis kode untuk menentukan apakah ada mobil yang namanya memiliki 5 huruf
     bool? result;
+    result = cars.any((car) => car.length == 5);
     return result == true;
   }
 
@@ -105,6 +156,7 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<double> temperatures = [32.0, 35.6, 37.2, 39.8, 40.0];
     //Tulis kode untuk menentukan apakah ada suhu dalam list yang sama dengan 40.0
     bool? result;
+    result = temperatures.contains(40.0);
     return result == true;
   }
 
@@ -112,13 +164,15 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<String> animals = ["cat", "dog", "elephant", "fish", "giraffe"];
     //Tulis kode untuk menentukan apakah ada hewan dalam list yang namanya memiliki 5 huruf
     bool? result;
-    return result == true;
+    result = animals.any((animals) => animals.length == 5);
+    return result == false;
   }
 
   bool exercise16() {
     List<String> names = ["John", "Jane", "Jim", "Jenny", "Jake"];
     //Tulis kode untuk menentukan apakah ada nama di dalam list yang memiliki huruf "J" sebagai huruf pertama
     bool? result;
+    result = names.any((names) => names.startsWith('J'));
     return result == true;
   }
 
@@ -126,6 +180,7 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<int> numbers = [3, 7, 12, 24, 35, 48, 63, 80];
     //Tulis kode untuk menentukan apakah ada angka di dalam list yang habis dibagi 7
     bool? result;
+    result = numbers.any((number) => number % 7 == 0);
     return result == true;
   }
 
@@ -133,6 +188,18 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<int> numbers = [3, 5, 8, 13, 21, 34, 55, 89];
     //Tulis kode untuk menentukan apakah ada angka di dalam list yang merupakan fibonacci number
     bool? result;
+    //sovle-1
+    // bool hasFibonacciNumber(List<int> list) {
+    //   // Fibonacci numbers
+    //   List<int> fibonacciNumbers = [3, 5, 8, 13, 21, 34, 55, 89];
+
+    //   return Set.from(list).intersection(Set.from(fibonacciNumbers)).isNotEmpty;
+    // }
+    // result = hasFibonacciNumber(numbers);
+
+    //solve-2
+    List<int> fibonacciNumbers = [3, 5, 8, 13, 21, 34, 55, 89];
+    result = numbers.any((number) => fibonacciNumbers.contains(number));
     return result == true;
   }
 
@@ -140,6 +207,32 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<String> words = ["apple", "banana", "cherry", "date", "elderberry"];
     //Tulis kode untuk menentukan apakah ada kata di dalam list yang memiliki jumlah huruf yang sama
     bool? result;
+    //solve-1
+    // bool hasSameLengthWord(List<String> list) {
+    //   int lengthCheck = list[0].length;
+    //   for (var item in list) {
+    //     if (item.length != lengthCheck) {
+    //       return false;
+    //     }
+    //   }
+    //   return true;
+    // }
+
+    // result = hasSameLengthWord(words);
+
+    //solve-2
+    bool hasMatchingLengthInList(List<String> list) {
+      Set<int> lengths = {};
+
+      for (var element in list) {
+        lengths.add(element.length);
+      }
+
+      return lengths.length != list.length;
+    }
+
+    result = hasMatchingLengthInList(words);
+
     return result == true;
   }
 
@@ -147,6 +240,7 @@ class FbkDartListAndMapView extends StatefulWidget {
     List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     //Tulis kode untuk menentukan apakah ada angka di dalam list yang merupakan bilangan prima
     bool? result;
+
     return result == true;
   }
 
